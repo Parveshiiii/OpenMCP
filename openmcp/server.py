@@ -8,7 +8,8 @@ from tools.search import search
 from tools.weather_forecast import get_forecast
 from tools.sandbox import execute_python
 from tools.url_extractor import fetch_url
-from connectors.resend import EmailSender
+from connectors.resend import send_email
+from tools.memory import save_memory, search_memory
 
 mcp = FastMCP("OpenMCP")
 
@@ -17,18 +18,9 @@ mcp.tool()(search)
 mcp.tool()(get_forecast)
 mcp.tool()(execute_python)
 mcp.tool()(fetch_url)
+mcp.tool()(send_email)
+mcp.tool()(save_memory)
+mcp.tool()(search_memory)
 
-@mcp.tool()
-async def send_email(to: list[str], subject: str, html: str) -> str:
-    """
-    Send an email using the Resend API.
-    
-    Args:
-        to: List of email addresses to send to.
-        subject: The subject of the email.
-        html: The HTML content of the email body.
-    """
-    sender = EmailSender(to=to, subject=subject, html=html)
-    result = await sender.send_mail()
-    return str(result)
+
 

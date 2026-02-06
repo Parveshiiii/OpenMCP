@@ -8,7 +8,6 @@ def _execute_python_sync(code: str):
     """
     Executes Python code and captures the output.
     """
-    # Create a string buffer to capture output
     output_buffer = io.StringIO()
     
     # Execution context (globals/locals). 
@@ -16,7 +15,6 @@ def _execute_python_sync(code: str):
     exec_globals = {"__builtins__": __builtins__}
     
     try:
-        # Redirect stdout and stderr to the buffer so we can return what was printed
         with contextlib.redirect_stdout(output_buffer), contextlib.redirect_stderr(output_buffer):
             exec(code, exec_globals)
             
